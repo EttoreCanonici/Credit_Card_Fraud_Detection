@@ -80,8 +80,8 @@ def main():
     ## Rileva anomalie sui dati di test con la soglia ottimale
     reconstruction_errors_test = detect_anomalies(model, test_loader, device)
     ## se la threshold è superiore al max(reconstruction_errors_test) esegui un rescaling
-    if reconstruction_errors_test.max()>reconstruction_errors.max():
-        rescaled_best_threshold = best_threshold * (reconstruction_errors.max()/reconstruction_errors_test.max())
+    if best_threshold > reconstruction_errors.max():
+        rescaled_best_threshold = best_threshold * (reconstruction_errors_test.max()/reconstruction_errors.max())
     else:
         rescaled_best_threshold = best_threshold
     anomalies_test = reconstruction_errors_test > rescaled_best_threshold
